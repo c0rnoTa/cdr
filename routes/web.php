@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (){
+    return view('generic.auth');
 });
+
+Route::get('/cdr', 'PageCDR@index');
