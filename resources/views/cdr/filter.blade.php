@@ -1,5 +1,5 @@
 
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-4 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Фильтр запроса</h2>
@@ -14,15 +14,14 @@
                 <form class="form-horizontal form-label-left input_mask">
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Куда звонили </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Куда звонили</label>
 
                         <div class="col-md-9 col-sm-9 col-xs-12 has-feedback">
                             <select class="form-control has-feedback-left">
-                                <option>Любой номер</option>
-                                <option>+7 (495) 123 4567</option>
-                                <option>+7 (495) 123 4567</option>
-                                <option>+7 (495) 123 4567</option>
-                                <option>+7 (495) 123 4567</option>
+                                <option value="">Не важно</option>
+                                @foreach($dst as $number)
+                                <option value="{{ $number->dst }}">{{ $number->dst }}</option>
+                                @endforeach
                             </select>
                             <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                         </div>
@@ -37,7 +36,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Когда звонил </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Когда звонил</label>
                         <div class="col-md-9 col-sm-9 col-xs-12 has-feedback">
                             <input id="birthday" class="date-picker form-control has-feedback-left" required="required" type="text" placeholder="Не помню">
                             <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -46,12 +45,11 @@
 
                     <div class="ln_solid"></div>
                     <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="reset" class="btn btn-primary">Cancel</button>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                        <div class="col-md-5 col-sm-9 col-xs-12 col-md-offset-7">
+                            <button type="reset" class="btn btn-primary">Сброс</button>
+                            <button type="submit" class="btn btn-success">Искать</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

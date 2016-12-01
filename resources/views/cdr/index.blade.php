@@ -45,6 +45,9 @@
         $(document).ready(function() {
 
             $('#datatable-responsive').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json"
+                }
                 // ajax: "js/datatables/json/scroller-demo.json",
                 // deferRender: true,
                 // scrollY: 380,
