@@ -29,13 +29,14 @@
                 <form>
                     <h1>Вход</h1>
                     <div>
-                        <input type="text" class="form-control" placeholder="Логин" required="" />
+                        <input type="text" class="form-control" placeholder="Логин" required="required" />
                     </div>
                     <div>
-                        <input type="password" class="form-control" placeholder="Пароль" required="" />
+                        <input type="password" class="form-control" placeholder="Пароль" required="required" />
                     </div>
                     <div>
-                        <a class="btn btn-default submit" href="#">Войти</a>
+                        <button type="submit" class="btn btn-success">Войти</button>
+                        <!--<a class="btn btn-default submit" href="#">Войти</a> -->
                     </div>
 
                     <div class="clearfix"></div>
