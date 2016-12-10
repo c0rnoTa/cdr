@@ -22,6 +22,17 @@
 
 @endsection
 
+@section('styles')
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+@endsection
+
 @section('scripts')
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -39,23 +50,34 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-    <!-- Datatables -->
     <script>
         $(document).ready(function() {
 
+            // Datatables
             $('#datatable-responsive').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json"
-                }
+                },
+                "order": [[ 0, "desc" ]]
                 // ajax: "js/datatables/json/scroller-demo.json",
                 // deferRender: true,
                 // scrollY: 380,
                 // scrollCollapse: true,
                 // scroller: true
             });
+            // Конец Datatables
+
+            // Каленедарик
+            $('#callDate').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_4"
+            });
+            // Конец календарика
 
         });
     </script>
-    <!-- /Datatables -->
 @endsection
