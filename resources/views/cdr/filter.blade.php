@@ -11,13 +11,14 @@
             </div>
             <div class="x_content">
                 <br />
-                <form class="form-horizontal form-label-left input_mask">
+                <form class="form-horizontal form-label-left input_mask" action="/cdr" method="post">
+                    <input name="_token" hidden value="{!! csrf_token() !!}" />
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Куда звонили</label>
 
                         <div class="col-md-9 col-sm-9 col-xs-12 has-feedback">
-                            <select id="callDestination" class="form-control has-feedback-left">
+                            <select name='callDestination' id="callDestination" class="form-control has-feedback-left">
                                 <option value="">Не важно</option>
                                 @foreach($dst as $number)
                                 <option value="{{ $number->dst }}">{{ $number->dst }}</option>
@@ -30,7 +31,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Кто звонил</label>
                         <div class="col-md-9 col-sm-9 col-xs-12 has-feedback">
-                            <input type="text" id="callSource"  class="form-control has-feedback-left"  placeholder="Не знаю">
+                            <input type="text" name='callSource' id="callSource"  class="form-control has-feedback-left"  placeholder="Не знаю">
                             <span class="fa fa-users form-control-feedback left" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -38,7 +39,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Когда звонил</label>
                         <div class="col-md-9 col-sm-9 col-xs-12 has-feedback">
-                            <input id="callDate" class="date-picker form-control has-feedback-left" type="text" placeholder="Не помню">
+                            <input name='callDate' id="callDate" class="date-picker form-control has-feedback-left" type="text" placeholder="Не помню">
                             <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                         </div>
                     </div>
