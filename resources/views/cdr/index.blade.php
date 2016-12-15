@@ -69,15 +69,21 @@
                 // scrollCollapse: true,
                 // scroller: true
             });
-            // Конец Datatables
 
             // Каленедарик
             $('#callDate').daterangepicker({
-                singleDatePicker: true,
-                calender_style: "picker_4"
+                @if ( isset( $requestcall['callDate'] ) )
+                'startDate': '{{ $requestcall['callDate'] }}',
+                @endif
+                'singleDatePicker': true
             });
-            // Конец календарика
 
+            // Выставляем значения в форму запроса
+            $('#callDestination').val({{ $requestcall['callDestination'] or 'null'}});
+            $('#callSource').val({{ $requestcall['callSource'] or 'null' }});
+            @if( !isset($requestcall['callDate']) )
+                $('#callDate').val(null);
+            @endif
         });
     </script>
 @endsection

@@ -16,4 +16,4 @@ Route::get('/', function (){
 });
 
 Route::get('/cdr', 'PageCDR@index');
-Route::post('/cdr', 'PageCDR@search');
+Route::post('/cdr', 'PageCDR@index');
