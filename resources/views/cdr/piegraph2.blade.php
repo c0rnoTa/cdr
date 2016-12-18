@@ -1,7 +1,7 @@
 <div class="col-md-4 col-sm-12 col-xs-12">
     <div class="x_panel tile fixed_height_320 overflow_hidden">
         <div class="x_title">
-            <h2>Входящие по номерам</h2>
+            <h2>Сводная по номеру</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link">Свернуть <i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -16,7 +16,7 @@
                     </th>
                     <th>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <p class="">Городской номер</p>
+                            <p class="">Статус звонка</p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <p class="">Количство звонков</p>
@@ -25,17 +25,17 @@
                 </tr>
                 <tr>
                     <td>
-                        <canvas id="piecanvas" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
+                        <canvas id="piecanvas2" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
                     </td>
                     <td>
                         <table class="tile_info">
                             <?php $colornames = ['blue','green','purple','aero','red','dark'] ?>
-                            @for( $i=0; $i<count($statsByDst); $i++)
+                            @for( $i=0; $i<count($statsByDisposition); $i++)
                                 <tr>
                                     <td>
-                                        <p><i class="fa fa-square {{ $colornames[$i] }}"></i>{{ $statsByDst[$i]->dst }} </p>
+                                        <p><i class="fa fa-square {{ $colornames[$i] }}"></i>{{ $statsByDisposition[$i]->disposition }} </p>
                                     </td>
-                                    <td>{{ $statsByDst[$i]->amount }}</td>
+                                    <td>{{ $statsByDisposition[$i]->amount }}</td>
                                 </tr>
                             @endfor
                         </table>
@@ -53,19 +53,19 @@
     $(document).ready(function() {
 
         // Круговой график
-        new Chart($('#piecanvas'), {
+        new Chart($('#piecanvas2'), {
             type: 'doughnut',
             tooltipFillColor: "rgba(51, 51, 51, 0.55)",
             data: {
                 labels: [
-                    @foreach($statsByDst as $dst)
-                    "{{ $dst->dst }}",
+                    @foreach($statsByDisposition as $dststat)
+                    "{{ $dststat->disposition }}",
                     @endforeach
                 ],
                 datasets: [{
                     data: [
-                        @foreach($statsByDst as $dst)
-                        {{ $dst->amount }},
+                        @foreach($statsByDisposition as $dststat)
+                        {{ $dststat->amount }},
                         @endforeach
                     ],
                     backgroundColor: [

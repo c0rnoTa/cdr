@@ -15,12 +15,24 @@
         @includeIf('cdr.resultstable')
     </div>
 
-    @if( count($callsByDst)>0 )
+    @if( count($calls)>0 )
     <div class="row">
-        <!-- Количество звонков по номерам -->
-        @includeIf('cdr.piegraph')
-        <!-- Количество звонков по дням -->
-        @includeIf('cdr.bargraph')
+        <!-- Выбираем круговой график в зависимости от данных -->
+        @if( count($statsByDst)>1 )
+            <!-- Количество звонков по номерам -->
+            @includeIf('cdr.piegraph')
+        @else
+            <!-- Статистика по номеру -->
+            @includeIf('cdr.piegraph2')
+        @endif
+        <!-- Выбираем столбчатую диаграмму в зависимости от данных -->
+        @if( count($callsByDate)>1 )
+            <!-- Количество звонков по дням -->
+            @includeIf('cdr.bargraph')
+        @else
+            <!-- Количество звонков по часам -->
+            @includeIf('cdr.bargraph2')
+        @endif
     </div>
     @endif
 
