@@ -18,10 +18,6 @@
 <script>
     $(document).ready(function() {
 
-        var randomScalingFactor = function() {
-            return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-        };
-
         var barChartData = {
             labels: [
                 @foreach($callsByDate as $day => $dayStat)
@@ -29,21 +25,21 @@
                 @endforeach
             ],
             datasets: [{
-                label: 'Отвечено',
-                backgroundColor: "rgba(151,187,205,0.5)",
-                data: [
-                    @foreach($callsByDate as $dayStat)
-                    {{ $dayStat['answered'] }},
-                    @endforeach
-                ]
-            }, {
                 label: 'Не отвечено',
-                backgroundColor: "rgba(220,220,220,0.5)",
+                backgroundColor: "rgba(104,122,127,0.8)",
                 data: [
                     @foreach($callsByDate as $dayStat)
                     {{ $dayStat['other'] }},
                     @endforeach
-                ]
+                    ]
+                },{
+                label: 'Отвечено',
+                backgroundColor: "rgba(139,180,208,0.8)",
+                data: [
+                    @foreach($callsByDate as $dayStat)
+                    {{ $dayStat['answered'] }},
+                    @endforeach
+                    ]
             }]
 
         };
