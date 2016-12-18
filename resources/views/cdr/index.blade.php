@@ -9,15 +9,15 @@
 @section('content')
 
     <div class="row">
+       <!-- Фильтр -->
+       @include('cdr.filter')
+        <!-- Детальный список звонков -->
+        @includeIf('cdr.resultstable')
+    </div>
 
-        <!-- Фильтр -->
-        @include('cdr.filter')
-        <!-- /Фильтр -->
-
-        <!-- Результаты запроса -->
-        @includeIf('cdr.results')
-        <!-- /Результаты запроса -->
-
+    <div class="row">
+        <!-- Количество звонков по номерам -->
+        @includeIf('cdr.piegraph')
     </div>
 
 @endsection
@@ -53,6 +53,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="../vendors/moment/min/moment.min.js"></script>
     <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -84,6 +86,44 @@
             @if( !isset($requestcall['callDate']) )
                 $('#callDate').val(null);
             @endif
+
+            // Круговой график
+            var options = {
+                legend: false,
+                responsive: false
+            };
+            new Chart(document.getElementById("canvas1"), {
+                type: 'doughnut',
+                tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+                data: {
+                    labels: [
+                        "Symbian",
+                        "Blackberry",
+                        "Other",
+                        "Android",
+                        "IOS"
+                    ],
+                    datasets: [{
+                        data: [15, 20, 30, 10, 30],
+                        backgroundColor: [
+                            "#BDC3C7",
+                            "#9B59B6",
+                            "#E74C3C",
+                            "#26B99A",
+                            "#3498DB"
+                        ],
+                        hoverBackgroundColor: [
+                            "#CFD4D8",
+                            "#B370CF",
+                            "#E95E4F",
+                            "#36CAAB",
+                            "#49A9EA"
+                            ]
+                        }]
+                    },
+                options: options
+            });
+
         });
     </script>
 @endsection

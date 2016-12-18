@@ -28,24 +28,28 @@ class PageCDR extends Controller
             }
         }
 
-        // Ищем звонки
-        $calls = $this->search( $requestcall );
+        // Собираем данные из БД
+        $calls = $this->getAllCalls($requestcall);
+        $callsByDst = $this->getCallsByDst($requestcall);
 
-        //return compact('calls','dst','requestcall');
+        //$colornames = ['blue','green','purple','aero','red','dark'];
 
-        return view('cdr.index', compact('calls','dst','requestcall') );
+        return view('cdr.index', compact('dst','requestcall','calls','callsByDst') );
     }
     
-    // Функция ищет звонки в базе
-    public function search( $search ) {
+    /** Функция собирает условия выборки SQL запроса
+     * @param array $call Структура искомого звонка
+     * @return array('clause','bindings')
+     */
+    private function buildQuery($call) {
 
         // Разбираем критерии выборки данных
         $where = array();
         $bindings = array();
 
         // Добавляем дату звонка к поиску
-        if ( $search['callDate'] ) {
-            $date = \DateTime::createFromFormat('m/d/Y', $search['callDate']);
+        if ( $call['callDate'] ) {
+            $date = \DateTime::createFromFormat('m/d/Y', $call['callDate']);
             $where[] = '(`calldate` BETWEEN ? AND ?)';
             $bindings[] = $date->format('Y-m-d 00:00:00');
             $bindings[] = $date->format('Y-m-d 23:59:59');
@@ -57,29 +61,60 @@ class PageCDR extends Controller
         }
 
         // Добавляем городской номер к поиску
-        if ( $search['callDestination'] ) {
+        if ( $call['callDestination'] ) {
             $where[] = '(`dst` LIKE ? )';
-            $bindings[] = $search['callDestination'];
+            $bindings[] = $call['callDestination'];
         }
 
         // Добавляем номер клиента к поиску
-        if ( $search['callSource'] ) {
+        if ( $call['callSource'] ) {
             $where[] = '(`src` LIKE ? )';
-            $bindings[] = '%'.$search['callSource'];
+            $bindings[] = '%'.$call['callSource'];
         }
 
-        // Собираем SQL запрос и критерии выборки данных
-        $query = 'SELECT * FROM `cdr`';
+        // Собираем массив WHERE CLAUSE в строку, которую будем добавлять в SQL запрос
         if ( count($where) > 0 ) {
-            $query .= 'WHERE ';
             if ( count($where) == 1) {
-                $query .= $where[0];
+                $where = ' WHERE ' . $where[0];
             } else {
-                $query .= implode('AND ', $where);
+                $where = ' WHERE ' . implode('AND ', $where);
             }
         }
 
-        // Возвращаем данные
-        return DB::select($query, $bindings);
+        return array('clause' => $where, 'bindings' => $bindings);
+    }
+
+    /** Функция возвращает детальный список звонков
+     * @param array $call Массив с параметрами искомого звонка
+     * @return array Массив найденных звонков
+     */
+    public function getAllCalls( $call = null ) {
+
+        // Получаем условия выборки исходя из запроса
+        $where = $this->buildQuery($call);
+
+        // Собираем SQL запрос с учетом критериев выборки данных из таблицы
+        $query = 'SELECT * FROM `cdr` ' . $where['clause'];
+
+        // Делаем запрос и возвращаем данные
+        return DB::select($query, $where['bindings']);
+    }
+
+    /** Функция возвращает количество вызовов по каждому dst
+     * @param array $call Массив с параметрами звонка запроса
+     * @return array Колличество вызовов по каждому номеру
+     */
+    public function getCallsByDst($call = null) {
+
+        // Получаем условия выборки исходя из запроса
+        $where = $this->buildQuery($call);
+
+        // Собираем SQL запрос с учетом критериев выборки данных из таблицы
+        $query = 'SELECT `dst`, count(*) as `amount` FROM `cdr` ' . $where['clause'] . ' GROUP BY `dst` ORDER BY `amount` DESC LIMIT 6';
+
+        // Делаем запрос и возвращаем данные
+        $dststats = DB::select($query, $where['bindings']);
+
+        return $dststats;
     }
 }
