@@ -17,7 +17,7 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    @yield('styles')
+    @stack('styles')
     <!-- Custom Theme Style -->
     <link href="../css/custom.css" rel="stylesheet">
 </head>
@@ -104,7 +104,7 @@
 <script src="../vendors/nprogress/nprogress.js"></script>
 <!-- iCheck -->
 <script src="../vendors/iCheck/icheck.min.js"></script>
-@yield('scripts')
+@stack('scripts')
 <!-- Custom Theme Scripts -->
 <script src="../js/custom.js"></script>
 

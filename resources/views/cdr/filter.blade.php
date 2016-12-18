@@ -1,5 +1,5 @@
 
-    <div class="col-md-4 col-xs-12">
+    <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Фильтр запроса</h2>
@@ -55,3 +55,33 @@
             </div>
         </div>
     </div>
+
+    @push('styles')
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    @endpush
+
+    @push('scripts')
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            // Каленедарик
+            $('#callDate').daterangepicker({
+                @if ( isset( $requestcall['callDate'] ) )
+                'startDate': '{{ $requestcall['callDate'] }}',
+                @endif
+                'singleDatePicker': true
+            });
+
+            // Выставляем значения в форму запроса
+            $('#callDestination').val({{ $requestcall['callDestination'] or 'null'}});
+            $('#callSource').val({{ $requestcall['callSource'] or 'null' }});
+            @if( !isset($requestcall['callDate']) )
+                $('#callDate').val(null);
+            @endif
+        });
+    </script>
+    @endpush

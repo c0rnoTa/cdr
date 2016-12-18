@@ -31,10 +31,11 @@ class PageCDR extends Controller
         // Собираем данные из БД
         $calls = $this->getAllCalls($requestcall);
         $callsByDst = $this->getCallsByDst($requestcall);
+        $callsByDate = $this->getCallsByDate($requestcall);
 
-        //$colornames = ['blue','green','purple','aero','red','dark'];
+        //return $callsByDate;
 
-        return view('cdr.index', compact('dst','requestcall','calls','callsByDst') );
+        return view('cdr.index', compact('dst','requestcall','calls','callsByDst','callsByDate') );
     }
     
     /** Функция собирает условия выборки SQL запроса
@@ -55,9 +56,9 @@ class PageCDR extends Controller
             $bindings[] = $date->format('Y-m-d 23:59:59');
         } else {
             $date = new \DateTime('NOW');
-            $where[] = '(`calldate` BETWEEN ? AND ?)';
-            $bindings[] = $date->format('Y-m-01 00:00:00');
-            $bindings[] = $date->format('Y-m-t 23:59:59');
+            $where[] = '(`calldate` BETWEEN NOW() - INTERVAL 1 MONTH AND NOW() )';
+            //$bindings[] = $date->format('Y-m-01 00:00:00');
+            //$bindings[] = $date->format('Y-m-t 23:59:59');
         }
 
         // Добавляем городской номер к поиску
@@ -81,7 +82,7 @@ class PageCDR extends Controller
             }
         }
 
-        return array('clause' => $where, 'bindings' => $bindings);
+        return ['clause' => $where, 'bindings' => $bindings];
     }
 
     /** Функция возвращает детальный список звонков
@@ -113,8 +114,37 @@ class PageCDR extends Controller
         $query = 'SELECT `dst`, count(*) as `amount` FROM `cdr` ' . $where['clause'] . ' GROUP BY `dst` ORDER BY `amount` DESC LIMIT 6';
 
         // Делаем запрос и возвращаем данные
-        $dststats = DB::select($query, $where['bindings']);
-
-        return $dststats;
+        return DB::select($query, $where['bindings']);
     }
+
+    /** Функция сбора подсчета количества поступивших и отвеченных звонков по дням
+     * @param array $call Массив с параметрами звонка запроса
+     * @return array $statsByDate Массив со статистикой
+     * */
+    public function getCallsByDate($call = null) {
+
+        // Получаем условия выборки исходя из запроса
+        $where = $this->buildQuery($call);
+
+        // Получаем данные из БД
+        $query = 'SELECT DATE(`calldate`) as callday, `disposition`, count(*) as amount FROM `cdr` ' . $where['clause'] . ' GROUP BY `callday`, `disposition`';
+        $callsByDate = DB::select($query, $where['bindings']);
+
+        // Формеруем возвращаемый массив со статистикой
+        $statsByDate = [];
+        foreach ($callsByDate as $value) {
+            $day = $value->callday;
+            if ( !array_key_exists($day, $statsByDate) ) {
+                $statsByDate[ $day ] = ['answered' => 0, 'other' => 0];
+            }
+            if ($value->disposition == 'ANSWERED') {
+                $statsByDate[ $day ]['answered'] += $value->amount;
+            } else {
+                $statsByDate[ $day ]['other'] += $value->amount;
+            }
+        }
+
+        return $statsByDate;
+    }
+
 }
