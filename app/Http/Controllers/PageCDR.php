@@ -63,7 +63,7 @@ class PageCDR extends Controller
             $bindings[] = $date->format('Y-m-d 00:00:00');
             $bindings[] = $date->format('Y-m-d 23:59:59');
         } else {
-            $date = new \DateTime('NOW');
+            $date = new \DateTime('NOW', new \DateTimeZone(ini_get('date.timezone')));
             $where[] = '(`calldate` BETWEEN ? AND ? )';
             $bindB = $date->format('Y-m-d 23:59:59');
             $date->modify('-31 day');
@@ -171,7 +171,7 @@ class PageCDR extends Controller
 
         if ( count($statsByDate)>1 ) {
             // Перебираем дни и формируем окончательный массив в порядке добавления дня
-            $currentDate = new \DateTime('NOW');
+            $currentDate = new \DateTime('NOW', new \DateTimeZone(ini_get('date.timezone')));
             $currentDate->modify('-31 day');
             $arrayCalls=[];
             for( $i=0; $i<=31; $i++ ) {

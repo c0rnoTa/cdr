@@ -1,7 +1,7 @@
 <div class="col-md-4 col-sm-12 col-xs-12">
     <div class="x_panel tile fixed_height_320 overflow_hidden">
         <div class="x_title">
-            <h2>Сводная по номеру</h2>
+            <h2>Успешность дозвона по номеру</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link">Свернуть <i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -16,7 +16,7 @@
                     </th>
                     <th>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <p class="">Статус звонка</p>
+                            <p class="">Результат дозвона</p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <p class="">Количство звонков</p>

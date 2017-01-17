@@ -86,7 +86,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                CDR Viewer 0.1 от Антона
+                CDR Viewer 0.2 от Антона
             </div>
             <div class="clearfix"></div>
         </footer>

@@ -9,8 +9,8 @@
 @section('content')
 
     <div class="row">
-       <!-- Фильтр -->
-       @include('cdr.filter')
+        <!-- Фильтр -->
+        @include('cdr.filter')
         <!-- Детальный список звонков -->
         @includeIf('cdr.resultstable')
     </div>
@@ -22,7 +22,7 @@
             <!-- Количество звонков по номерам -->
             @includeIf('cdr.piegraph')
         @else
-            <!-- Статистика по номеру -->
+            <!-- Успешность дозвона по номеру -->
             @includeIf('cdr.piegraph2')
         @endif
         <!-- Выбираем столбчатую диаграмму в зависимости от данных -->
