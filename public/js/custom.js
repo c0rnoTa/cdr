@@ -277,3 +277,11 @@ if (typeof NProgress != 'undefined') {
         NProgress.done();
     });
 }
+
+// Навигационное меню сверху-справа
+$(document).ready(function() {
+    $("#logout-link").on("click", function (event) {
+        event.preventDefault();
+        $('#logout-form').submit();
+    });
+});

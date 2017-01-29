@@ -1,4 +1,4 @@
-@extends('generic.layout')
+@extends('layouts.app')
 
 @section('title','Список звонков')
 
@@ -20,18 +20,18 @@
         <!-- Выбираем круговой график в зависимости от данных -->
         @if( count($statsByDst)>1 )
             <!-- Количество звонков по номерам -->
-            @includeIf('cdr.piegraph')
+            @includeIf('cdr.pieCallsPerNumber')
         @else
             <!-- Успешность дозвона по номеру -->
-            @includeIf('cdr.piegraph2')
+            @includeIf('cdr.pieSuccessForNumber')
         @endif
         <!-- Выбираем столбчатую диаграмму в зависимости от данных -->
         @if( count($callsByDate)>1 )
             <!-- Количество звонков по дням -->
-            @includeIf('cdr.bargraph')
+            @includeIf('cdr.barCallsPerDay')
         @else
             <!-- Количество звонков по часам -->
-            @includeIf('cdr.bargraph2')
+            @includeIf('cdr.barCallsPerHour')
         @endif
     </div>
     @endif

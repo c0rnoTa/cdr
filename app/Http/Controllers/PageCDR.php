@@ -8,10 +8,26 @@ use Illuminate\Support\Facades\Input;
 
 class PageCDR extends Controller
 {
-    // Структура звонка
+
+    /**
+     * Структура звонка
+     * @return array
+     */
     private static $call = ['callDestination','callSource','callDate'];
-    
-    /** Приём запроса и отображение данных */
+
+    /**
+     * Проверяем авторизацию пользователя
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Приём запроса и отображение данных
+     * @return mixed
+     */
     public function index() {
 
         // Получаем список всех городских номеров

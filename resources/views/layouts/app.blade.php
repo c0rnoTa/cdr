@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title') | FBX nano</title>
+    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,7 @@
                     <div class="menu_section">
                         <h3>Меню</h3>
                         <ul class="nav side-menu">
-                            <li><a href="#"><i class="fa fa-bar-chart-o"></i> Список звонков</a></li>
+                            <li><a href="/cdr"><i class="fa fa-bar-chart-o"></i> Список звонков</a></li>
                         </ul>
                     </div>
                 </div>
@@ -55,10 +55,22 @@
                     <div class="nav toggle">
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
-
+                    <!-- Выпадающее меню справа -->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a href="/"> Выход <i class="fa fa-sign-out"></i></a>
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <!-- <img src="images/img.jpg" alt=""> -->{{ Auth::user()->name }}
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li>
+                                    <a href="/logout" id="logout-link">
+                                    <i class="fa fa-sign-out pull-right"></i> Выход</a>
+                                    <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -86,7 +98,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                CDR Viewer 0.2 от Антона
+                CDR Viewer 0.3 от Антона
             </div>
             <div class="clearfix"></div>
         </footer>

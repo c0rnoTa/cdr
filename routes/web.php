@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function (){
-    return view('generic.auth');
-});
+Auth::routes();
+
+Route::get('/', 'PageCDR@index');
 
 Route::get('/cdr', 'PageCDR@index');
 Route::post('/cdr', 'PageCDR@index');
+
+
+
+Route::get('/home', 'HomeController@index');
