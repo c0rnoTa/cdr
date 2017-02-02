@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') | {{ config('app.name', 'FBX nano') }}</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,11 +36,13 @@
                 <br />
 
                 <!-- Боковое меню -->
+
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <h3>Меню</h3>
                         <ul class="nav side-menu">
-                            <li><a href="/cdr"><i class="fa fa-bar-chart-o"></i> Список звонков</a></li>
+                            <li id="li_cdr"><a href="/cdr"><i class="fa fa-bar-chart"></i> История звонков</a></li>
+                            <li id="li_users"><a href="/users"><i class="fa fa-users"></i> Пользователи</a></li>
                         </ul>
                     </div>
                 </div>
@@ -119,6 +121,12 @@
 @stack('scripts')
 <!-- Custom Theme Scripts -->
 <script src="../js/custom.js"></script>
+<!-- Выбрать текущий пункт меню -->
+<script>
+    $(document).ready(function() {
+        @stack('select_menu')
+    });
+</script>
 
 </body>
 </html>

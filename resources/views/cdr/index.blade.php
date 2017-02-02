@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
-@section('title','Список звонков')
+@section('title','История звонков')
 
-@section('page_title','Список звонков')
+@section('page_title','История звонков')
 
-@section('page_description','История вызовов по телефонным номерам')
+@section('page_description','История выходящих вызовов')
+
+@push('select_menu')
+    $('#li_cdr').addClass('current-page');
+@endpush
 
 @section('content')
 
@@ -12,7 +16,7 @@
         <!-- Фильтр -->
         @include('cdr.filter')
         <!-- Детальный список звонков -->
-        @includeIf('cdr.resultstable')
+        @includeIf('cdr.resultsTable')
     </div>
 
     @if( count($calls)>0 )
