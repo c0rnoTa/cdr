@@ -31,7 +31,7 @@ class PageCDR extends Controller
     public function index() {
 
         // Получаем список всех городских номеров
-        $dst = DB::select('SELECT DISTINCT `dst` FROM `cdr`');
+        $dst = DB::table('cdr')->where('dcontext','=','incoming')->distinct()->get(['dst']);
 
         // Если были получены данные из формы поиска
         // записываем их в структуру искомого звонка
