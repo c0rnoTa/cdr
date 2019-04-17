@@ -19,6 +19,7 @@ Route::get('/cdr', 'PageCDR@index');
 Route::post('/cdr', 'PageCDR@index');
 
 Route::get('/users', 'PageUsers@index');
+Route::post('/users', 'PageUsers@save');
 
 
 Route::get('/home', 'HomeController@index');

@@ -10,7 +10,8 @@
         </div>
         <div class="x_content">
             <div class="col-md-12 center-margin">
-                <form class="form-horizontal form-label-left">
+                <form class="form-horizontal form-label-left input_mask" action="/users" method="post">
+                    <input name="_token" hidden value="{!! csrf_token() !!}" />
 
                     <div class="form-group">
                         <label class="col-md-12 col-sm-12 col-xs-12">Имя пользователя</label>
@@ -31,7 +32,7 @@
                     <div class="form-group">
                         <label class="col-md-12 col-sm-12 col-xs-12">Пароль</label>
                         <div class="col-md-12 col-sm-12 col-xs-12 has-feedback">
-                            <input type="password" name='password-conform' id="password-conform"  class="form-control has-feedback-left"  placeholder="Пароль">
+                            <input type="password" name='password' id="password"  class="form-control has-feedback-left"  placeholder="Пароль">
                             <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -39,7 +40,7 @@
                     <div class="form-group">
                         <label class="col-md-12 col-sm-12 col-xs-12">Пароль еще раз</label>
                         <div class="col-md-12 col-sm-12 col-xs-12 has-feedback">
-                            <input type="password" name='password' id="password"  class="form-control has-feedback-left"  placeholder="Пароль еще раз">
+                            <input type="password" name='password-conform' id="password-conform"  class="form-control has-feedback-left"  placeholder="Пароль еще раз">
                             <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                         </div>
                     </div>
