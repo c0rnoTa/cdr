@@ -11,24 +11,37 @@
         <div class="x_content">
             <div class="col-md-12 center-margin">
                 <form class="form-horizontal form-label-left">
+
                     <div class="form-group">
-                        <label>Логин</label>
-                        <div class="has-feedback">
-                            <input id="name" type="text" name="name" class="form-control has-feedback-left" placeholder="Фамилия Имя">
+                        <label class="col-md-12 col-sm-12 col-xs-12">Имя пользователя</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12 has-feedback">
+                            <input type="text" name='name' id="name"  class="form-control has-feedback-left"  placeholder="Имя пользователя">
+                            <span class="fa fa-male form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-12 col-sm-12 col-xs-12">Логин</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12 has-feedback">
+                            <input type="text" name='login' id="login"  class="form-control has-feedback-left"  placeholder="Логин">
                             <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label>Логин</label>
-                        <input id="login" type="text" name="login" class="form-control" placeholder="Логин">
+                        <label class="col-md-12 col-sm-12 col-xs-12">Пароль</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12 has-feedback">
+                            <input type="password" name='password-conform' id="password-conform"  class="form-control has-feedback-left"  placeholder="Пароль">
+                            <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                        </div>
                     </div>
+
                     <div class="form-group">
-                        <label>Пароль</label>
-                        <input id="password" type="password" name="password" class="form-control" placeholder="Пароль">
-                    </div>
-                    <div class="form-group">
-                        <label>Пароль еще раз</label>
-                        <input id="password-conform" type="password" name="password-conform" class="form-control" placeholder="Пароль">
+                        <label class="col-md-12 col-sm-12 col-xs-12">Пароль еще раз</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12 has-feedback">
+                            <input type="password" name='password' id="password"  class="form-control has-feedback-left"  placeholder="Пароль еще раз">
+                            <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                        </div>
                     </div>
 
                     <div class="ln_solid"></div>
